@@ -16,6 +16,12 @@ set SYNTH_FLAGS(FPGA)      "xcvu9p-flgb2104-2-i"
 set SYNTH_FLAGS(MCS_IFACE) "SMAPx32"
 set SYNTH_FLAGS(BOARD)     $CARD_NAME
 
+# Optimization directives for implementation
+set SYNTH_FLAGS(SOPT_DIRECTIVE)  "Explore"
+set SYNTH_FLAGS(PLACE_DIRECTIVE) "Explore"
+set SYNTH_FLAGS(POPT_DIRECTIVE)  "Explore"
+set SYNTH_FLAGS(ROUTE_DIRECTIVE) "Explore"
+
 # Main component
 lappend HIERARCHY(COMPONENTS) [list "TOPLEVEL" $CARD_BASE/src "FULL"]
 
