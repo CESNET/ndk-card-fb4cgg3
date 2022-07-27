@@ -286,11 +286,6 @@ begin
         DMA_RX_CHANNELS         => DMA_RX_CHANNELS/DMA_MODULES,
         DMA_TX_CHANNELS         => DMA_TX_CHANNELS/DMA_MODULES,
 
-        USER_GENERIC0           => USER_GENERIC0,
-        USER_GENERIC1           => USER_GENERIC1,
-        USER_GENERIC2           => USER_GENERIC2,
-        USER_GENERIC3           => USER_GENERIC3,
-
         BOARD                   => BOARD,
         DEVICE                  => "ULTRASCALE",
 
