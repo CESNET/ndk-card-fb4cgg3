@@ -259,6 +259,7 @@ begin
         PCIE_CLKS               => PCIE_CLKS,
         PCIE_CONS               => PCIE_CONS,
 
+        ETH_CORE_ARCH           => NET_MOD_ARCH,
         ETH_PORTS               => ETH_PORTS,
         ETH_PORT_SPEED          => ETH_PORT_SPEED,
         ETH_PORT_CHAN           => ETH_PORT_CHAN,
