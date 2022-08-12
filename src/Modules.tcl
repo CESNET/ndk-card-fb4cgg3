@@ -6,8 +6,6 @@
 
 # Globally defined variables
 global CARD_COMMON_BASE
-global ETH_ENABLE
-global ETH_PORT_SPEED
 global BOARD
 set BOARD "FB4CGG3"
 

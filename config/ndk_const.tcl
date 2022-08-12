@@ -22,6 +22,12 @@ set CARD_NAME "FB4CGG3"
 if {$env(ETH_PORTS) == 2} {
     set CARD_NAME "FB2CGG3"
 }
+# Achitecture of Clock generator
+set CLOCK_GEN_ARCH "USP"
+# Achitecture of PCIe module
+set PCIE_MOD_ARCH "USP"
+# Achitecture of Network module
+set NET_MOD_ARCH "CMAC"
 
 VhdlPkgBegin
 

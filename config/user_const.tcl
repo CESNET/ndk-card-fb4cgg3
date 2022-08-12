@@ -12,7 +12,6 @@ set PROJECT_NAME ""
 # ==============================================================================
 # ETH parameters:
 # ==============================================================================
-set ETH_ENABLE        true
 # Number of Ethernet ports, must match number of items in list ETH_PORTS_SPEED!
 # This board exists in two variants: FB4CGG3 (with four QSFP ports) and FB2CGG3
 # (with two QSFP). Set the correct number of ETH ports according to your card.
@@ -81,6 +80,3 @@ set DMA_RX_BLOCKING_MODE true
 # =================
 set TSU_ENABLE false
 set MEM_PORTS 0
-
-# Clock generator achitecture (INTEL or USP)
-set CLOCK_GEN_ARCH "USP"

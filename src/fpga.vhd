@@ -277,7 +277,7 @@ begin
         MISC_OUT_WIDTH          => MISC_OUT_WIDTH,
 
         PCIE_ENDPOINTS          => PCIE_ENDPOINTS,
-        PCIE_ENDPOINT_TYPE      => "USP",
+        PCIE_ENDPOINT_TYPE      => PCIE_MOD_ARCH,
         PCIE_ENDPOINT_MODE      => PCIE_ENDPOINT_MODE,
 
         DMA_ENDPOINTS           => DMA_ENDPOINTS,
