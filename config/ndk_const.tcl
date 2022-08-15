@@ -28,6 +28,8 @@ set CLOCK_GEN_ARCH "USP"
 set PCIE_MOD_ARCH "USP"
 # Achitecture of Network module
 set NET_MOD_ARCH "CMAC"
+# Achitecture of SDM/SYSMON module
+set SDM_SYSMON_ARCH "USP_IDCOMP"
 
 VhdlPkgBegin
 
