@@ -130,6 +130,7 @@ architecture FULL of FPGA is
     constant ETH_LANE_MAP        : integer_vector(4*ETH_LANES-1 downto 0) := (3, 2, 1, 0, 3, 2, 1, 0, 3, 2, 1, 0, 3, 2, 1, 0);
     constant ETH_LANE_RXPOLARITY : std_logic_vector(4*ETH_LANES-1 downto 0) := "1000100010001000";
     constant ETH_LANE_TXPOLARITY : std_logic_vector(4*ETH_LANES-1 downto 0) := "1111111111111111";
+    constant DEVICE              : string  := "ULTRASCALE";
 
     signal sysclk_ibuf      : std_logic;
     signal sysclk_bufg      : std_logic;
@@ -156,8 +157,20 @@ architecture FULL of FPGA is
     signal misc_in          : std_logic_vector(MISC_IN_WIDTH-1 downto 0) := (others => '0');
     signal misc_out         : std_logic_vector(MISC_OUT_WIDTH-1 downto 0);
 
-    signal boot_clk         : std_logic;
-    signal boot_reset       : std_logic;
+    signal pcie_clk         : std_logic;
+    signal pcie_reset       : std_logic;
+
+    signal boot_mi_clk      : std_logic;
+    signal boot_mi_reset    : std_logic;
+    signal boot_mi_dwr      : std_logic_vector(31 downto 0);
+    signal boot_mi_addr     : std_logic_vector(31 downto 0);
+    signal boot_mi_rd       : std_logic;
+    signal boot_mi_wr       : std_logic;
+    signal boot_mi_be       : std_logic_vector(3 downto 0);
+    signal boot_mi_drd      : std_logic_vector(31 downto 0);
+    signal boot_mi_ardy     : std_logic;
+    signal boot_mi_drdy     : std_logic;
+
     signal boot_wr_en       : std_logic;
     signal boot_wr_data     : std_logic_vector(64-1 downto 0);
     signal boot_rd_data     : std_logic_vector(64-1 downto 0);
@@ -228,17 +241,39 @@ begin
     qsfp_int_n    <= QSFP0_INT_N & QSFP1_INT_N & QSFP2_INT_N & QSFP3_INT_N;
 
     -- SPI FLASH DRIVER --------------------------------------------------------
-    boot_clk     <= misc_out(0);
-    boot_reset   <= misc_out(1);
-    boot_wr_en   <= misc_out(2);
-    boot_wr_data <= misc_out(3+64-1 downto 3);
 
-    misc_in <= boot_rd_data;
+    boot_ctrl_i : entity work.BOOT_CTRL
+    generic map(
+        DEVICE      => DEVICE,
+        BOOT_TYPE   => 2
+    )
+    port map(
+        MI_CLK        => boot_mi_clk,
+        MI_RESET      => boot_mi_reset,
+        MI_DWR        => boot_mi_dwr,
+        MI_ADDR       => boot_mi_addr,
+        MI_BE         => boot_mi_be,
+        MI_RD         => boot_mi_rd,
+        MI_WR         => boot_mi_wr,
+        MI_ARDY       => boot_mi_ardy,
+        MI_DRD        => boot_mi_drd,
+        MI_DRDY       => boot_mi_drdy,
+
+        BOOT_CLK      => pcie_clk,
+        BOOT_RESET    => pcie_reset,
+
+        BOOT_REQUEST  => open,
+        BOOT_IMAGE    => open,
+
+        FLASH_WR_DATA => boot_wr_data,
+        FLASH_WR_EN   => boot_wr_en,
+        FLASH_RD_DATA => boot_rd_data
+    ); 
 
     spi_flash_driver_i : entity work.SPI_FLASH_DRIVER
     port map (
-        CLK         => boot_clk,
-        RESET       => boot_reset,
+        CLK         => pcie_clk,
+        RESET       => pcie_reset,
 
         REG_WR_DATA => boot_wr_data,
         REG_WR_EN   => boot_wr_en,
@@ -288,7 +323,7 @@ begin
         DMA_TX_CHANNELS         => DMA_TX_CHANNELS/DMA_MODULES,
 
         BOARD                   => BOARD,
-        DEVICE                  => "ULTRASCALE",
+        DEVICE                  => DEVICE,
 
         DMA_GEN_LOOP_EN         => DMA_GEN_LOOP_EN
     )
@@ -328,6 +363,20 @@ begin
         STATUS_LED_G(1)         => STATUS_LED_G1,
         STATUS_LED_R(0)         => STATUS_LED_R0,
         STATUS_LED_R(1)         => STATUS_LED_R1,
+
+        PCIE_CLK                => pcie_clk,
+        PCIE_RESET              => pcie_reset,
+    
+        BOOT_MI_CLK             => boot_mi_clk,
+        BOOT_MI_RESET           => boot_mi_reset,
+        BOOT_MI_DWR             => boot_mi_dwr,
+        BOOT_MI_ADDR            => boot_mi_addr,
+        BOOT_MI_RD              => boot_mi_rd,
+        BOOT_MI_WR              => boot_mi_wr,
+        BOOT_MI_BE              => boot_mi_be,
+        BOOT_MI_DRD             => boot_mi_drd,
+        BOOT_MI_ARDY            => boot_mi_ardy,
+        BOOT_MI_DRDY            => boot_mi_drdy,
 
         MISC_IN                 => misc_in,
         MISC_OUT                => misc_out
