@@ -26,7 +26,7 @@ Boot instructions
     - Copy .nfw file into current directory 
     - Boot design by using ``nfb-boot -f 0`` command in directory where .nfw file is located.
         - ``nfb-boot -f 0 fb2cgg3-minimal-100g2.nfw`` command for 2x100GbE firmware
-        - ``nfb-boot -f 0 fb4cgg3-minimal-100g4.nfw`` command for 4x100Gbe firmware
+        - ``nfb-boot -f 0 fb4cgg3-minimal-100g4.nfw`` command for 4x100GbE firmware
 - To confirm that design is booted correctly use ``nfb-info`` command
 
 .. note::
