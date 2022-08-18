@@ -36,7 +36,7 @@ Boot instructions
 Ethernet Interface
 ^^^^^^^^^^^^^^^^^^
 
-This card has four QSFP ports. Each port is connected to the FPGA via 4 high-speed serial lines supporting up to 25 Gbps. Each of these ports is connected to CMAC core with speed of ``1x100GE``. The architecture of network module :ref:`is described here <ndk_intel_net_mod>`.
+This card has four (FB4CGG3) or two (FB2CGG3) QSFP ports. Each port is connected to the FPGA via 4 high-speed serial lines supporting up to 25 Gbps. Each of these ports is connected to CMAC core with speed of ``1x100GE``. The architecture of network module :ref:`is described here <ndk_intel_net_mod>`.
 
 
 PCIe Interface
