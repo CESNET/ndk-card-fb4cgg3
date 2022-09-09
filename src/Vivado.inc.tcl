@@ -29,3 +29,7 @@ lappend HIERARCHY(COMPONENTS) [list "TOPLEVEL" $CARD_BASE/src "FULL"]
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/general.xdc"
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/pcie.xdc"
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/qsfp.xdc"
+if {$ETH_PORTS == 2} {
+    lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/qsfp_fb2_only.xdc"
+}
+lappend SYNTH_FLAGS(CONSTR) [list "$CARD_BASE/constr/qsfp_loc.xdc" USED_IN implementation]
