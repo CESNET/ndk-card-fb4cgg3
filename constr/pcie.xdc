@@ -12,3 +12,7 @@ set_property PACKAGE_PIN AT11 [get_ports {PCIE_SYSCLK_P}]
 set_property PACKAGE_PIN AT10 [get_ports {PCIE_SYSCLK_N}]
 
 create_clock -name pci_clk -period 10 [get_ports *PCIE_SYSCLK_P]
+
+create_pblock pblock_pcie_i
+resize_pblock [get_pblocks pblock_pcie_i] -add {SLR1}
+add_cells_to_pblock [get_pblocks pblock_pcie_i] [get_cells -quiet [list usp_i/pcie_i]]
