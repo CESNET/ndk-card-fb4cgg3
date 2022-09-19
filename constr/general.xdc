@@ -51,3 +51,6 @@ set_property PACKAGE_PIN AN21 [get_ports QLED_CLK]
 set_property IOSTANDARD LVCMOS18 [get_ports QLED_LE]
 set_property IOSTANDARD LVCMOS18 [get_ports QLED_SDI]
 set_property IOSTANDARD LVCMOS18 [get_ports QLED_CLK]
+
+# Lock DNA_PORT2E to X0Y1 due to different Chip ID in each SLRs
+set_property LOC CONFIG_SITE_X0Y1 [get_cells usp_i/hwid_i/usp_g.dna_port_i]
