@@ -4,19 +4,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-set OFM_PATH        $env(OFM_PATH)
-set COMBO_BASE      $env(COMBO_BASE)
-set FIRMWARE_BASE   $env(FIRMWARE_BASE)
-set CARD_BASE       $env(CARD_BASE)
-set NDK_CONST       $env(NDK_CONST)
-set DEFAULT_CONST   $env(DEFAULT_CONST)
-set USER_CONST      $env(USER_CONST)
-set OUTPUT_NAME     $env(OUTPUT_NAME)
-
-set CARD_COMMON_BASE $COMBO_BASE/ndk/core/intel
-
-source $OFM_PATH/build/VhdlPkgGen.tcl
-source $OFM_PATH/build/Shared.tcl
 
 set CARD_NAME "FB4CGG3"
 if {$env(ETH_PORTS) == 2} {
@@ -31,7 +18,6 @@ set NET_MOD_ARCH "CMAC"
 # Achitecture of SDM/SYSMON module
 set SDM_SYSMON_ARCH "USP_IDCOMP"
 
-VhdlPkgBegin
 # ------------------------------------------------------------------------------
 # ETH parameters:
 # ------------------------------------------------------------------------------
@@ -62,8 +48,6 @@ set ETH_PORT_LANES(1) 4
 set ETH_PORT_LANES(2) 4
 set ETH_PORT_LANES(3) 4
 
-# Source default constants
-source $DEFAULT_CONST
 # ------------------------------------------------------------------------------
 # PCIe parameters (not all combinations work):
 # ------------------------------------------------------------------------------
@@ -80,18 +64,12 @@ set PCIE_ENDPOINTS     1
 # 0 = 1x16 lanes
 set PCIE_ENDPOINT_MODE 0
 
-# Source application constants if they exists
-if {$USER_CONST ne ""} {
-	source $USER_CONST
-}
 # ------------------------------------------------------------------------------
 # DMA parameters:
 # ------------------------------------------------------------------------------
 # This variable can be set in COREs *.mk file or as a parameter when launching the make
 set DMA_TYPE    $env(DMA_TYPE)
 
-# Source common core const scripts
-source $CARD_COMMON_BASE/config/ndk_const.tcl
 # ------------------------------------------------------------------------------
 # Other parameters:
 # ------------------------------------------------------------------------------
