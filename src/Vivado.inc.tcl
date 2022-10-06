@@ -23,8 +23,20 @@ set SYNTH_FLAGS(PLACE_DIRECTIVE) "Explore"
 set SYNTH_FLAGS(POPT_DIRECTIVE)  "Explore"
 set SYNTH_FLAGS(ROUTE_DIRECTIVE) "Explore"
 
+# Propagating card constants to the Modules.tcl files of the underlying components.
+# The description of usage of this array is provided in the Parametrization section
+# of the NDK-CORE repository documentation.
+set CARD_ARCHGRP(CORE_BASE) $CORE_BASE
+
+# make lists from associative arrays
+set CARD_ARCHGRP_L [array get CARD_ARCHGRP]
+set CORE_ARCHGRP_L [array get CORE_ARCHGRP]
+
+# concatenate lists to be handed as a part of the ARCHGRP to the TOPLEVEL
+set ARCHGRP_ALL [concat $CARD_ARCHGRP_L $CORE_ARCHGRP_L]
+
 # Main component
-lappend HIERARCHY(COMPONENTS) [list "TOPLEVEL" $CARD_BASE/src "FULL"]
+lappend HIERARCHY(COMPONENTS) [list "TOPLEVEL" $CARD_BASE/src $ARCHGRP_ALL]
 
 # XDC constraints for specific parts of the design
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/general.xdc"
