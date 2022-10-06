@@ -1,14 +1,15 @@
 # Vivado.inc.tcl: Vivado.tcl include
 # Copyright (C) 2022 CESNET z.s.p.o.
 # Author(s): Jakub Cabal <cabal@cesnet.cz>
+#            Vladislav Valek <valekv@cesnet.cz>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# NDK constants (populates all NDK variables from env)
-source $env(NDK_CONST)
+# Source configuration files(populates all variables from env)
+source $env(CORE_BASE)/config/core_bootstrap.tcl
 
-# Include common card script
-source $CARD_COMMON_BASE/Vivado.inc.tcl
+# Include CORE script
+source $CORE_BASE/Vivado.inc.tcl
 
 # Design parameters
 set SYNTH_FLAGS(MODULE)    "fpga"
