@@ -40,6 +40,11 @@ source $DEFAULT_CONST
 if {$USER_CONST ne ""} {
 	source $USER_CONST
 }
+# ------------------------------------------------------------------------------
+# DMA parameters:
+# ------------------------------------------------------------------------------
+# This variable can be set in COREs *.mk file or as a parameter when launching the make
+set DMA_TYPE    $env(DMA_TYPE)
 
 # Source common core const scripts
 source $CARD_COMMON_BASE/config/ndk_const.tcl
