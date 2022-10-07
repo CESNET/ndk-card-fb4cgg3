@@ -1,17 +1,31 @@
-# user_const.tcl: Default parameters
-# Copyright (C) 2022 CESNET z. s. p. o.
+# card_const.tcl: Default parameters for a card (development only)
+# Copyright (C) 2022 CESNET, z. s. p. o.
 # Author(s): Jakub Cabal <cabal@cesnet.cz>
+#            Vladislav Valek <valekv@cesnet.cz>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Source default common values
-source $CARD_COMMON_BASE/config/user_const.tcl
+# WARNING: The user should not deliberately change parameters in this file. For
+# the description of this file, visit the Parametrization section in the
+# documentation of the NDK-CORE repostiory
 
-set PROJECT_NAME ""
+set CARD_NAME "FB4CGG3"
 
-# ==============================================================================
+if {$env(ETH_PORTS) == 2} {
+    set CARD_NAME "FB2CGG3"
+}
+# Achitecture of Clock generator
+set CLOCK_GEN_ARCH "USP"
+# Achitecture of PCIe module
+set PCIE_MOD_ARCH "USP"
+# Achitecture of Network module
+set NET_MOD_ARCH "CMAC"
+# Achitecture of SDM/SYSMON module
+set SDM_SYSMON_ARCH "USP_IDCOMP"
+
+# ------------------------------------------------------------------------------
 # ETH parameters:
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # Number of Ethernet ports, must match number of items in list ETH_PORTS_SPEED!
 # This board exists in two variants: FB4CGG3 (with four QSFP ports) and FB2CGG3
 # (with two QSFP). Set the correct number of ETH ports according to your card.
@@ -38,47 +52,32 @@ set ETH_PORT_LANES(0) 4
 set ETH_PORT_LANES(1) 4
 set ETH_PORT_LANES(2) 4
 set ETH_PORT_LANES(3) 4
-# ------------------------------------------------------------------------------
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # PCIe parameters (not all combinations work):
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # Supported combinations for this card:
 # 1x PCIe Gen3 x16 -- PCIE_GEN=3, PCIE_ENDPOINTS=1, PCIE_ENDPOINT_MODE=0 (Note: default configuration)
 # ------------------------------------------------------------------------------
-# PCIe Generation (possible values: 3, 4, 5):
+# PCIe Generation (possible values: 3):
 # 3 = PCIe Gen3
-# 4 = PCIe Gen4 (Stratix 10 with P-Tile or Agilex)
-# 5 = PCIe Gen5 (Agilex with R-Tile)
 set PCIE_GEN           3
-# PCIe endpoints (possible values: 1, 2, 4):
+# PCIe endpoints (possible values: 1):
 # 1 = 1x PCIe x16 in one slot
-# 2 = 2x PCIe x16 in two slot OR 2x PCIe x8 in one slot (bifurcation x8+x8)
-# 4 = 4x PCIe x8 in two slots (bifurcation x8+x8)
 set PCIE_ENDPOINTS     1
-# PCIe endpoint mode (possible values: 0, 1):
+# PCIe endpoint mode (possible values: 0):
 # 0 = 1x16 lanes
-# 1 = 2x8 lanes (bifurcation x8+x8)
 set PCIE_ENDPOINT_MODE 0
-# ------------------------------------------------------------------------------
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # DMA parameters:
-# ==============================================================================
-# If you do not have access to a non-public repository with DMA IP, set to false.
-# If the DMA module is disabled, loopback will be implemented instead.
-set DMA_ENABLE           true
-# The minimum number of RX/TX DMA channels for this card is 16.
-set DMA_RX_CHANNELS      16
-set DMA_TX_CHANNELS      16
-# In blocking mode, packets are dropped only when the RX DMA channel is off.
-# In non-blocking mode, packets are dropped whenever they cannot be sent.
-set DMA_RX_BLOCKING_MODE true
 # ------------------------------------------------------------------------------
+# This variable can be set in COREs *.mk file or as a parameter when launching the make
+set DMA_TYPE    $env(DMA_TYPE)
 
+# ------------------------------------------------------------------------------
 # Other parameters:
-# =================
-set TSU_ENABLE true
+# ------------------------------------------------------------------------------
 set TSU_FREQUENCY 322265625
 
 set MEM_PORTS 0
