@@ -1,7 +1,7 @@
 .. _card_fb4cgg3:
 
 Silicom fb4CGg3\@VU9P
---------------------
+---------------------
 
 - Card information:
     - Vendor: Silicom
