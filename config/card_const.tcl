@@ -23,6 +23,14 @@ set NET_MOD_ARCH "CMAC"
 # Achitecture of SDM/SYSMON module
 set SDM_SYSMON_ARCH "USP_IDCOMP"
 
+# Total number of QSFP cages
+set QSFP_CAGES       $ETH_PORTS
+# I2C address of each QSFP cage
+set QSFP_I2C_ADDR(0) "0xA0"
+set QSFP_I2C_ADDR(1) "0xA0"
+set QSFP_I2C_ADDR(2) "0xA0"
+set QSFP_I2C_ADDR(3) "0xA0"
+
 # ------------------------------------------------------------------------------
 # PCIe parameters (not all combinations work):
 # ------------------------------------------------------------------------------
