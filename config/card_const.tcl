@@ -52,4 +52,4 @@ set PCIE_ENDPOINT_MODE 0
 # ------------------------------------------------------------------------------
 set TSU_FREQUENCY 322265625
 
-set MEM_PORTS 0
+set MEM_PORTS 2
