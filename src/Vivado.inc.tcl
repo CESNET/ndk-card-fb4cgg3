@@ -42,6 +42,7 @@ lappend HIERARCHY(COMPONENTS) [list "TOPLEVEL" $CARD_BASE/src $ARCHGRP_ALL]
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/general.xdc"
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/pcie.xdc"
 lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/qsfp.xdc"
+lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/ddr4.xdc"
 if {$ETH_PORTS == 2} {
     lappend SYNTH_FLAGS(CONSTR) "$CARD_BASE/constr/qsfp_fb2_only.xdc"
 }
