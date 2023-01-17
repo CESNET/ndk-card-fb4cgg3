@@ -32,20 +32,14 @@ set QSFP_I2C_ADDR(2) "0xA0"
 set QSFP_I2C_ADDR(3) "0xA0"
 
 # ------------------------------------------------------------------------------
-# PCIe parameters (not all combinations work):
+# Checking of parameter compatibility
 # ------------------------------------------------------------------------------
-# Supported combinations for this card:
-# 1x PCIe Gen3 x16 -- PCIE_GEN=3, PCIE_ENDPOINTS=1, PCIE_ENDPOINT_MODE=0 (Note: default configuration)
-# ------------------------------------------------------------------------------
-# PCIe Generation (possible values: 3):
-# 3 = PCIe Gen3
-set PCIE_GEN           3
-# PCIe endpoints (possible values: 1):
-# 1 = 1x PCIe x16 in one slot
-set PCIE_ENDPOINTS     1
-# PCIe endpoint mode (possible values: 0):
-# 0 = 1x16 lanes
-set PCIE_ENDPOINT_MODE 0
+
+if {!(($PCIE_ENDPOINTS == 1 && $PCIE_GEN == 3 && $PCIE_ENDPOINT_MODE == 0)) } {
+    error "Incompatible PCIe configuration: PCIE_ENDPOINTS = $PCIE_ENDPOINTS, PCIE_GEN = $PCIE_GEN, PCIE_ENDPOINT_MODE = $PCIE_ENDPOINT_MODE!
+Allowed PCIe configurations:
+- 1xGen3x16  -- PCIE_GEN=3, PCIE_ENDPOINTS=1, PCIE_ENDPOINT_MODE=0"
+}
 
 # ------------------------------------------------------------------------------
 # Other parameters:

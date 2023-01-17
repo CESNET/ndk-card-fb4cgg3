@@ -41,6 +41,32 @@ set ETH_PORT_LANES(2) 4
 set ETH_PORT_LANES(3) 4
 
 # ------------------------------------------------------------------------------
+# PCIe parameters (not all combinations work):
+# ------------------------------------------------------------------------------
+# Supported combinations for this card:
+# 1x PCIe Gen3 x16  -- PCIE_ENDPOINT_MODE=0 (Note: default configuration)
+# ------------------------------------------------------------------------------
+
+# Set default PCIe configuration
+set PCIE_CONF "1xGen3x16"
+if { [info exist env(PCIE_CONF)] } {
+    set PCIE_CONF $env(PCIE_CONF)
+}
+
+# Parsing PCIE_CONF string to list of parameters
+set pcie_conf_list [ParsePcieConf $PCIE_CONF]
+
+# PCIe Generation:
+# 3 = PCIe Gen3
+set PCIE_GEN           [lindex $pcie_conf_list 1]
+# PCIe endpoints:
+# 1 = 1x PCIe x16 in one slot
+set PCIE_ENDPOINTS     [lindex $pcie_conf_list 0]
+# PCIe endpoint mode:
+# 0 = 1x16 lanes
+set PCIE_ENDPOINT_MODE [lindex $pcie_conf_list 2]
+
+# ------------------------------------------------------------------------------
 # DMA parameters:
 # ------------------------------------------------------------------------------
 # This variable can be set in COREs *.mk file or as a parameter when launching the make
