@@ -22,8 +22,15 @@ lappend COMPONENTS [list "AXI2AVMM_BRIDGE"  $AXI2AVMM_BRIDGE_BASE    "FULL"  ]
 # IP sources
 lappend MOD "$ENTITY_BASE/ip/pcie4_uscale_plus/pcie4_uscale_plus.xci"
 lappend MOD "$ENTITY_BASE/ip/xvc_vsec/xvc_vsec.xci"
-lappend MOD "$ENTITY_BASE/ip/cmac_eth_1x100g/cmac_eth_1x100g.xci"
 lappend MOD "$ENTITY_BASE/ip/ddr4_axi/ddr4_axi.xci"
+
+if { $ARCHGRP_ARR(NET_MOD_ARCH) == "40GE"} {
+    lappend MOD "$ENTITY_BASE/ip/gty_40ge/gty_40ge.xci"
+} else {
+    lappend MOD "$ENTITY_BASE/ip/cmac_eth_1x100g/cmac_eth_1x100g.xci"
+}
+
+
 
 # Top-level
 lappend MOD "$ENTITY_BASE/fpga.vhd"

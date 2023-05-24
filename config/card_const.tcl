@@ -18,12 +18,19 @@ if {$env(ETH_PORTS) == 2} {
 set CLOCK_GEN_ARCH "USP"
 # Achitecture of PCIe module
 set PCIE_MOD_ARCH "USP"
-# Achitecture of Network module
-set NET_MOD_ARCH "CMAC"
 # Achitecture of SDM/SYSMON module
 set SDM_SYSMON_ARCH "USP_IDCOMP"
 # Boot controller type
 set BOOT_TYPE 2
+# Achitecture of Network module
+if { $ETH_PORT_SPEED(0) == 100 } {
+    set NET_MOD_ARCH "CMAC"
+} elseif { $ETH_PORT_SPEED(0) == 40 } {
+    set NET_MOD_ARCH "40GE"
+} else {
+    error "Unsupported Ethernet port speed $ETH_PORT_SPEED(0) !"
+}
+
 
 # Total number of QSFP cages
 set QSFP_CAGES       $ETH_PORTS
